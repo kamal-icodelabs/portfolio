@@ -2,16 +2,26 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
-import styles from "./Topbar.module.css";
+import classNames from "classnames";
+import css from "./Topbar.module.css";
 
 const CLIP_SKEW = "polygon(0 0, 100% 0, 90% 100%, 0 100%)";
 const CLIP_VERTICAL = "polygon(0 0, 100% 0, 100% 100%, 0 100%)";
 
+const MENU_ITEMS = [
+  { label: "Home", href: "#" },
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#work" },
+  { label: "Contact", href: "#contact" },
+];
+
 export function Topbar() {
   const navRef = useRef(null);
+  const backdropRef = useRef(null);
   const bar1Ref = useRef(null);
   const bar2Ref = useRef(null);
   const bar3Ref = useRef(null);
+  const menuItemsRef = useRef([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const getWidth = useCallback(() => {
@@ -52,12 +62,42 @@ export function Topbar() {
     return tl;
   };
 
+  const animateMenuItems = (open) => {
+    const items = menuItemsRef.current.filter(Boolean);
+
+    if (open) {
+      gsap.set(items, { opacity: 0, x: -40 });
+      gsap.to(items, {
+        opacity: 1,
+        x: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        delay: 0.3,
+        ease: "power2.out",
+      });
+    } else {
+      gsap.to(items, {
+        opacity: 0,
+        x: -40,
+        duration: 0.2,
+        stagger: 0.05,
+        ease: "power2.in",
+        onComplete: () => {
+          gsap.set(items, { opacity: 0, x: -40 });
+        },
+      });
+    }
+  };
+
   const handleClick = () => {
     const nav = navRef.current;
-    if (!nav) return;
+    const backdrop = backdropRef.current;
+    if (!nav || !backdrop) return;
 
     if (!isOpen) {
       animateBars(true);
+      animateMenuItems(true);
+      gsap.to(backdrop, { opacity: 1, duration: 0.4, ease: "power2.out", onStart: () => { backdrop.style.pointerEvents = "auto"; } });
       gsap.to(nav, {
         x: "0%",
         width: getWidth(),
@@ -67,6 +107,8 @@ export function Topbar() {
       });
     } else {
       animateBars(false);
+      animateMenuItems(false);
+      gsap.to(backdrop, { opacity: 0, duration: 0.3, ease: "power2.in", onComplete: () => { backdrop.style.pointerEvents = "none"; } });
       gsap.to(nav, {
         x: "-100%",
         duration: 0.5,
@@ -82,14 +124,29 @@ export function Topbar() {
 
   return (
     <>
-      <nav ref={navRef} className={styles.nav}>
-        <section />
+      <div ref={backdropRef} className={css.backdrop} onClick={isOpen ? handleClick : undefined} />
+      <nav ref={navRef} className={classNames(css.nav, !isOpen && css.navCloseSmoothTransition)}>
+        <section>
+          <ul className={css.menuList}>
+            {MENU_ITEMS.map((item, i) => (
+              <li
+                key={item.label}
+                ref={(el) => { menuItemsRef.current[i] = el; }}
+                className={css.menuItem}
+              >
+                <a href={item.href} className={css.menuLink}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </nav>
-      <button className={styles.menuButton} onClick={handleClick}>
-        <div className={styles.menuBars}>
-          <div ref={bar1Ref} className={styles.bar1} />
-          <div ref={bar2Ref} className={styles.bar2} />
-          <div ref={bar3Ref} className={styles.bar3} />
+      <button className={css.menuButton} onClick={handleClick}>
+        <div className={css.menuBars}>
+          <div ref={bar1Ref} className={css.bar1} />
+          <div ref={bar2Ref} className={css.bar2} />
+          <div ref={bar3Ref} className={css.bar3} />
         </div>
       </button>
     </>

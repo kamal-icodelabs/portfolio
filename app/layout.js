@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Topbar } from "@/components/common/Topbar";
+import { Topbar } from "@/components/common/Topbar/Topbar";
 
 export const metadata = {
   title: "Vishwas Portfolio",
