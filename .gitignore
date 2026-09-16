@@ -39,3 +39,16 @@ next-env.d.ts
 *.swp
 *.swo
 *~
+
+
+bun.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+bun.lockb.gz
+bun.lockb.gz.br
+bun.lockb.gz.br.gz
+bun.lockb.gz.br.gz.br
+bun.lockb.gz.br.gz.br.gz
+bun.lockb.gz.br.gz.br.gz.br

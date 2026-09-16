@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Topbar } from "@/components/common/Topbar/Topbar";
+import SmoothScroll from "@/components/common/SmoothScroll/SmoothScroll";
 
 export const metadata = {
   title: "Vishwas Portfolio",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <Topbar />
         {children}
+        <SmoothScroll />
       </body>
     </html>
   );
