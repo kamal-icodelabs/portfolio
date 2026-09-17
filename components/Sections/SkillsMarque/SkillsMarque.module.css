@@ -130,44 +130,6 @@
     height: 64px;
 }
 
-.orbitHub {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 2;
-    width: 132px;
-    height: 132px;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    background: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 50%;
-    box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.12),
-        inset 0 0 0 10px rgba(0, 0, 0, 0.02);
-}
-
-.orbitHub span {
-    font-family: "Google Sans", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: rgba(0, 0, 0, 0.5);
-}
-
-.orbitHub strong {
-    font-family: "Google Sans", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    font-size: 30px;
-    font-weight: 600;
-    line-height: 1;
-    color: #000;
-}
-
 @media (max-width: 768px) {
     .marquee {
         top: 16%;
@@ -197,19 +159,6 @@
         width: min(82vw, 360px);
         height: min(82vw, 360px);
         transform: translate(50%, -40%);
-    }
-
-    .orbitHub {
-        width: 96px;
-        height: 96px;
-    }
-
-    .orbitHub span {
-        letter-spacing: 2.5px;
-    }
-
-    .orbitHub strong {
-        font-size: 22px;
     }
 
     .marqueeBG {

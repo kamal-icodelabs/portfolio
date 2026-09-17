@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
@@ -21,6 +21,7 @@ const GAP = 0;
 export default function SkillsMarque() {
     const rootRef = useRef(null);
     const bgImgRef = useRef(null);
+    const [showClouds, setShowClouds] = useState(false);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -148,6 +149,8 @@ export default function SkillsMarque() {
         return () => ctx.revert();
     }, []);
 
+
+
     return (
         <div ref={rootRef} className={css.skillsContainer}>
             <Image
@@ -196,10 +199,7 @@ export default function SkillsMarque() {
                         />
                     </div>
                 ))}
-                <div className={css.orbitHub}>
-                    <span>Skills</span>
-                    <strong>{SKILLS.length}</strong>
-                </div>
+
             </div>
         </div>
     );
